@@ -6,7 +6,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "NIAGADS Template next.js Application",
   description: "https://github.com/NIAGADS/nextjs-template",
-  icon: "/favicon.svg"
 };
 
 export default function RootLayout({

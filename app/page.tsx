@@ -1,5 +1,5 @@
-import Image from "next/image";
+import React from "react"
 
 export default function Home() {
-    return <div>NIAGADS next.js template</div>;
+    return <h1>NIAGADS next.js template </h1>;
 }
