@@ -1,2 +1,4 @@
 # nextjs-template
-template repository for NIAGADS next.js sites
+
+> template repository for NIAGADS next.js sites
+
