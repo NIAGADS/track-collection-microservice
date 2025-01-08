@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# nextjs
+.next
+.env.local
+.env
+
 # User-specific files
 *.rsuser
 *.suo
@@ -287,7 +292,6 @@ FakesAssemblies/
 .ntvs_analysis.dat
 node_modules/
 dist/
-.next/
 
 # Visual Studio 6 build log
 *.plg
