@@ -30,3 +30,7 @@ git remote add template https://github.com/NIAGADS/nextjs-template
 git fetch --all
 git merge template/[branch to merge] --allow-unrelated-histories
 ```
+
+# Docker
+
+> NOTE: this template includes a docker-compose.yaml file.  README for building a templated docker application will be added soon.
