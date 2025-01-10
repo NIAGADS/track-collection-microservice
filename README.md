@@ -59,7 +59,6 @@ For more information on search engine optimization (SEO), please visit:
 * <https://github.com/garmeeh/next-seo>
 * <https://blog.logrocket.com/manage-seo-next-js-with-next-seo/>
 
-
 ### docker-compose.yaml
 
 * change `service->name` from `nextjs-template-app` as appropriate
@@ -67,6 +66,10 @@ For more information on search engine optimization (SEO), please visit:
 You may also need to customize the `networks` section if your application needs to share a network w/other dockerized services. 
 
 See the [docker-compose.yaml](https://github.com/NIAGADS/niagads-api-client/blob/244ac6f080e760f45ae7f2e60143daa839e10e45/docker-compose.yaml) from the NIAGADS API Client for an example.
+
+### app/layout.tsx
+
+* exported `Metadata` object
 
 ## Deployment
 
