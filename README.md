@@ -2,28 +2,31 @@
 
 > template repository for NIAGADS next.js sites
 
-## Usage
+## Create new projects
 
-You can create an new project in multiple ways:
+### Create a new next.js application from the template 
 
-### Using node/npx to build a new application, not linked to a repository
+(new application; not a GitHub repository)
+
 ```bash
 npx create-next-app --example https://github.com/NIAGADS/nextjs-template <app>
 ```
 
-### Generate a new repository in GitHub using the template (CLI)
+### Generate a new repository in GitHub using the template 
+
+#### CLI
 
 ```bash
 gh repo create <new-repo-name> --template="https://github.com/NIAGADS/nextjs-template"
 ```
 
-### Generate a new repository in GitHub using the template (website)
+#### Using GitHub.com interface
 
 <https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template>
 
-## To sync templated projects with the template
+## Sync templated projects
 
-in the local project directory for the application built from the template
+To keep applications generated from the template, run the following in the application's local project directory:
 
 ```bash
 git remote add template https://github.com/NIAGADS/nextjs-template
@@ -31,6 +34,12 @@ git fetch --all
 git merge template/[branch to merge] --allow-unrelated-histories
 ```
 
-# Docker
+and merge conflicts as required for your application.
+
+## Customize
+
+
+
+## Docker builds
 
 > NOTE: this template includes a docker-compose.yaml file.  README for building a templated docker application will be added soon.
