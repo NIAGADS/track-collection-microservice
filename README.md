@@ -85,15 +85,13 @@ In the project directory:
 
 This template includes a docker-compose.yaml file. The docker build is 2-stage that creates a slim runner application linked to code on the host.  This allows easy editing of the code w/hot-reloads in development environments.  
 
-A Docker deployment requires several environmental variables to be set in a `.env` file.  Start by copying the sample file.   
+A Docker deployment requires several environmental variables to be set in an `.env` file.  Copy the sample file:
 
 ```bash
 cp docker.env.sample .env
 ```
 
-> *DO NOT* edit `docker.env.sample` file directly to avoid accidentally commiting application-specific configrations to the GitHub repository.
-
-Edit the following variables as appropriate:
+and edit the following variables as appropriate:
 
 * properties for naming the container and image:
   * `VERSION`
@@ -104,15 +102,13 @@ Edit the following variables as appropriate:
 * `GIT_DEPENDENCIES` set to `1` if your `package.json` imports packages from GitHub
 * `APPLICATION_DIR` full path to the application root directory on the host; e.g. `/projects/nextjs-template`
 
-> *IMPORTANT*: the docker build requires the `.env.local` environmental file for the `next.js` application.  If your application does not require any environmental settings still create the `.env.local` file.  
-
 Make sure there is a placeholder `.env.local` file if not required by your application:
 
 ```bash
 cp sample.env.local .env.local
 ```
 
-> *DO NOT* edit `sample.env.local` file directly to avoid accidentally commiting application-specific configrations to the GitHub repository.
+> *IMPORTANT*: the docker build requires the `.env.local` environmental file for the `next.js` application.  If your application does not require any environmental settings you must create the placeholder file.  
 
 To deploy, run the following:
 
