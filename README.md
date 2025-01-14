@@ -71,6 +71,12 @@ See the [docker-compose.yaml](https://github.com/NIAGADS/niagads-api-client/blob
 
 * exported `Metadata` object
 
+### tsconfig.json and tsconfig.base.json
+
+Next.js overwrites `tsconfig.json` under certain conditions if values don't meet its expected defaults.  This is a problem for development and for handling older third-party libraries.  As a work-around, `tsconfig.base.json` has been added and `tsconfig.json` modifid to `extend` the `tsconfig.base.json` configuration.
+
+> Customizations to the `tsconfig` should be made to the `.base.json` file.
+
 ## Deployment
 
 This is just a basic next.js application, so follow standard procedure.
