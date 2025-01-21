@@ -16,6 +16,18 @@ const nextConfig: NextConfig = {
             }
         ]
     }
+
+    /* for redirects to the GenomicsDB; e.g., record links
+    async redirects() {
+        return [
+            {
+                source: '/gene/:path*',
+                destination: 'https://www.niagads.org/genomics/app/record/gene/:path*',
+                permanent: true
+            }
+        ]
+    }
+
     */
 };
 
