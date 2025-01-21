@@ -24,6 +24,11 @@ const nextConfig: NextConfig = {
                 source: '/gene/:path*',
                 destination: 'https://www.niagads.org/genomics/app/record/gene/:path*',
                 permanent: true
+            },
+            {
+                source: '/variant/:path*',
+                destination: 'https://www.niagads.org/genomics/app/record/variant/:path*',
+                permanent: true
             }
         ]
     }
