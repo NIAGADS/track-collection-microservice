@@ -29,7 +29,13 @@ const nextConfig: NextConfig = {
                 source: '/variant/:path*',
                 destination: 'https://www.niagads.org/genomics/app/record/variant/:path*',
                 permanent: true
-            }
+            },
+            {
+                source: '/record/:path*',
+                destination: 'https://www.niagads.org/genomics/app/record/:path*',
+                permanent: true
+            },
+        ]
         ]
     }
 
