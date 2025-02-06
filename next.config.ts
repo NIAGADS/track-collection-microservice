@@ -3,21 +3,25 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
     /* config options here */
 
-    /* for accessing GenomicsDB services and static files; e.g., genome browser tracks
+    /* for accessing GenomicsDB services and static files; e.g., genome browser tracks */
     async rewrites() {
         return [
             {
                 source: '/service/:path*',
                 destination: 'https://www.niagads.org/genomics/service/:path*'
-            },
+            },           
             {
+                source: '/api/:path*',
+                destination: 'http://localhost:8000/:path*'
+            }
+           /* {
                 source: '/files/:path*',
                 destination: 'https://www.niagads.org/genomics/files/:path*'
-            }
+            }*/
         ]
-    }
+    },
 
-    /* for redirects to the GenomicsDB; e.g., record links
+    /* for redirects to the GenomicsDB; e.g., record links */
     async redirects() {
         return [
             {
@@ -30,16 +34,14 @@ const nextConfig: NextConfig = {
                 destination: 'https://www.niagads.org/genomics/app/record/variant/:path*',
                 permanent: true
             },
-            {
+          /*  {
                 source: '/record/:path*',
                 destination: 'https://www.niagads.org/genomics/app/record/:path*',
                 permanent: true
-            },
-        ]
+            }, */
         ]
     }
 
-    */
 };
 
 export default nextConfig;

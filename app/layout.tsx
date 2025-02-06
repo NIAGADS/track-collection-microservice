@@ -4,8 +4,8 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  title: "NIAGADS Template next.js Application",
-  description: "https://github.com/NIAGADS/nextjs-template",
+  title: "NIAGADS Track Collection Microservice",
+  description: "track collection browser; allows you to search and mine top hits in related collections of NIAGADS or ADSP data tracks",
 };
 
 export default function RootLayout({
