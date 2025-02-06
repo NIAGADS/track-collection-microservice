@@ -19,6 +19,8 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@bug_sam/table": "^0.0.8",
+        "@bug_sam/ui": "^0.0.3",
         "next": "15.1.4",
         "next-seo": "^6.6.0",
         "react": "^19.0.0",
