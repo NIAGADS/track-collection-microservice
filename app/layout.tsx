@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Providers } from "./provider";
 import "./globals.css";
+import NavigationMenu from "@/components/Navigation";
 
 export const metadata: Metadata = {
     title: "NIAGADS Track Collection Microservice",
@@ -16,7 +17,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className="antialiased">
-                <Providers>{children}</Providers>
+                <Providers>
+                    <NavigationMenu></NavigationMenu>
+                    {children}
+                </Providers>
             </body>
         </html>
     );

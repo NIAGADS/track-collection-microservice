@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
     /* config options here */
-
+    assetPrefix: '/track-collection-static',
     /* for accessing GenomicsDB services and static files; e.g., genome browser tracks */
     async rewrites() {
         return [

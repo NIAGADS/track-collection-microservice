@@ -9,8 +9,9 @@ import {
     Link,
     Tooltip,
     Image,
+    Input,
+    Form,
 } from "@heroui/react";
-import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 
 const fetchTableMetadata = cache(async (route: string, track: string) => {
     const requestUrl = `/api/${route}/track/${track}?content=full`;
@@ -75,7 +76,7 @@ function TrackPageHeader({ track }: Props) {
 
     return (
         metadata && (
-            <div className="m-6 gap-2 grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-4">
+            <div className="m-6 gap-2 grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
                 <Card className="w-[400px]">
                     <CardHeader>
                         <div className="flex flex-col">
@@ -94,6 +95,17 @@ function TrackPageHeader({ track }: Props) {
                                 }
                                 value={metadata.feature_type}
                                 className="float-end"></Attribute>
+                            {metadata.data_category === "QTL" && (
+                                <Attribute
+                                    label={"Filter"}
+                                    value={
+                                        metadata.name.split("QTL ")[
+                                            metadata.name.split("QTL ").length -
+                                                1
+                                        ]
+                                    }
+                                />
+                            )}
                         </div>
                     </CardHeader>
                     <CardBody>
@@ -109,10 +121,18 @@ function TrackPageHeader({ track }: Props) {
                             label="Attribution"
                             value={`${metadata.provenance.attribution} // ${metadata.provenance.pubmed_id}`}
                         />
+                        <Attribute
+                            label="Consortia"
+                            value={`${metadata.provenance.consortia}`}
+                        />
                     </CardBody>
                 </Card>
                 <Card className="w-[400px]">
                     <CardBody>
+                        <Attribute
+                            label="Cohort(s)"
+                            value={`${metadata.cohorts}`}
+                        />
                         <Attribute
                             label="Biosample"
                             value={
@@ -122,12 +142,41 @@ function TrackPageHeader({ track }: Props) {
                     </CardBody>
                 </Card>
                 <Card className="w-[400px]">
+                    <CardBody>
+                        <Tooltip content="Retrieve the full track metadata in JSON format from the NIAGADS Open Access API">
+                            <Button
+                                showAnchorIcon
+                                color="primary"
+                                as={Link}
+                                href={`/api/filer/track/${metadata.track_id}?content=full`}>
+                                Fetch Metadata
+                            </Button>
+                        </Tooltip>
+                            <Form validationBehavior="aria" className="mt-2">
+                                <Input label="Region" type="text" isDisabled={true} />
+                                <Tooltip content="Retrieve the track data in a genomic region (gene or span) of interest from the NIAGADS Open Access API">
+
+                                <Button
+                                    showAnchorIcon
+                                    type="submit"
+                                    color="primary"
+                                    as={Link}
+                                    isDisabled={true}>
+                                    Fetch Data
+                                </Button>
+                                </Tooltip>
+                            </Form>
+                        
+                    </CardBody>
+                </Card>
+
+                <Card className="w-[400px]">
                     <CardHeader>
                         <em>p-Value Distribution</em>
                     </CardHeader>
                     <CardBody>
                         <Image
-                            src="https://dummyimage.com/250x125/5bbfe3/0011ff&text=p-value+dist"
+                            src="https://dummyimage.com/400x200/5bbfe3/0011ff&text=p-value+dist"
                             alt="placeholder"></Image>
                     </CardBody>
                 </Card>
