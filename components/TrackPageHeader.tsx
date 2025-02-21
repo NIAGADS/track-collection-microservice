@@ -8,6 +8,7 @@ import {
     CardHeader,
     Link,
     Tooltip,
+    Image,
 } from "@heroui/react";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 
@@ -118,6 +119,16 @@ function TrackPageHeader({ track }: Props) {
                                 metadata.biosample_characteristics
                                     .biosample_term
                             }></Attribute>
+                    </CardBody>
+                </Card>
+                <Card className="w-[400px]">
+                    <CardHeader>
+                        <em>p-Value Distribution</em>
+                    </CardHeader>
+                    <CardBody>
+                        <Image
+                            src="https://dummyimage.com/250x125/5bbfe3/0011ff&text=p-value+dist"
+                            alt="placeholder"></Image>
                     </CardBody>
                 </Card>
             </div>
