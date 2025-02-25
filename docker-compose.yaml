@@ -2,15 +2,17 @@ services:
   track-collection-microservice:
     container_name: ${CONTAINER_NAME}
     image: ${CONTAINER_NAME}
+    restart: unless-stopped
     build:
       context: .
       dockerfile: ./client.Dockerfile     
       args:
           BUILD: ${BUILD} 
           GIT_DEPENDENCIES: ${GIT_DEPENDENCIES}
-
     ports:
       - '${PORT}:3000'
+    environment:
+      - HOST=0.0.0.0
     volumes:
       - ${APPLICATION_DIR}:/app
       # by mounting the "node_modules" we force it to be empty
@@ -22,6 +24,8 @@ services:
 
 networks:
   nextjs-app:
+    name: niagads-service-network
+    external: true
 
 
 volumes:
