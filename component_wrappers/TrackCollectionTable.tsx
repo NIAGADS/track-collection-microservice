@@ -63,7 +63,7 @@ const fetchTableData = cache(async (collection: Collection) => {
             track_id: {
                 value: t.track_id,
                 type: "link",
-                url: `/track/${t.track_id}`,
+                url: `track/${t.track_id}`,
                 tooltip: "Explore the track data",
             },
         });
