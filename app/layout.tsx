@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Providers } from "./provider";
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
     title: "NIAGADS Template next.js Application",
@@ -16,9 +15,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className="antialiased">
-                <Providers>
                 {children}
-                </Providers>
                 </body>
         </html>
     );
