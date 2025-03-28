@@ -1,0 +1,35 @@
+.ui-nav {
+    @apply fixed w-full z-20 top-0 start-0 border-b border-gray-200;
+
+    &.white {
+        @apply bg-white;
+    }
+
+    &.primary {
+        @apply bg-primary text-white;
+    }
+
+    &.secondary {
+        @apply bg-secondary;
+    }
+
+    &.default {
+        @apply bg-gray-500;
+    }
+}
+
+.ui-nav-inner-container {
+    @apply max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4
+}
+
+.ui-nav-brand {
+    @apply flex items-center space-x-3 rtl:space-x-reverse
+}
+
+.ui-nav-brand-label {
+    @apply self-center text-2xl font-semibold whitespace-nowrap dark:text-white
+}
+
+.ui-nav-item-container {
+    @apply items-center justify-between hidden w-full md:flex md:w-auto md:order-1;
+}
