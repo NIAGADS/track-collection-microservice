@@ -7,7 +7,9 @@ import { Skeleton } from "@niagads/ui";
 export default function CollectionTrackBrowser() {
     return (
         <Suspense fallback={<Skeleton type="default" />}>
-            <TrackCollectionTable />
+            <div className="max-w-[1240px] m-auto mt-8">
+                <TrackCollectionTable />
+            </div>
         </Suspense>
     );
 }

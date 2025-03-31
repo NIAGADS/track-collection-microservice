@@ -7,6 +7,16 @@ import { Skeleton } from "@niagads/ui";
 
 import "@niagads/table/css";
 
+const DEFAULT_COLUMNS = [
+    "track_id",
+    "name",
+    "feature_type",
+    "study_name",
+    "biosample_term",
+    "number_of_intervals",
+    "bp_covered",
+];
+
 type RESPONSE_TYPE = "collection-listing" | "track-listing";
 
 const fetchCollectionInformation = cache(async (collection: Collection, responseType: RESPONSE_TYPE) => {
@@ -89,7 +99,6 @@ function TrackCollectionTable() {
     const [collection, setCollection] = useState<Collection | null>(null);
     const [table, setTable] = useState<TableProps | null>(null);
 
-    const defaultColumns = ["track_id", "name", "feature_type", "study_name", "biosample_term"];
     useEffect(() => {
         try {
             const [route, name] = process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
@@ -110,7 +119,7 @@ function TrackCollectionTable() {
 
     useEffect(() => {
         if (table) {
-            table.options.defaultColumns = defaultColumns;
+            table.options.defaultColumns = DEFAULT_COLUMNS;
             table.options.disableColumnFilters = true; // FIXME: remove when column filters work
             setLoading(false);
         }

@@ -20,8 +20,10 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@niagads/ui": "^0.2.5-alpha.0",
         "@niagads/table": "^0.2.5-alpha.0",
+        "@niagads/ui": "^0.2.5-alpha.0",
+        "highcharts": "^12.1.2",
+        "highcharts-react-official": "^3.2.1",
         "next": "15.1.4",
         "next-seo": "^6.6.0",
         "react": "^19.0.0",

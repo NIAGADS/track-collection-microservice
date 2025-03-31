@@ -1,8 +1,8 @@
 "use client";
 
-import { cache, useEffect, useState } from "react";
+import { cache, useEffect, useMemo, useState } from "react";
 import Table from "@niagads/table";
-import { Card, CardBody, Skeleton } from "@niagads/ui";
+import { Alert, Card, CardBody, Skeleton } from "@niagads/ui";
 
 import "@niagads/table/css";
 interface Row {
@@ -48,6 +48,41 @@ function TrackDataTable({ track }: Props) {
     const [loading, setLoading] = useState<boolean>(true);
     const [data, setData] = useState<TableViewResponse | null>(null);
 
+    /*  "request_id": "329627b1a9ea911d03dfaa7a3fa8505c",
+    "endpoint": "/genomics/track/NGFGXQTL0000005/data",
+    "parameters": {
+      "view": "table",
+      "track": "NGFGXQTL0000005",
+      "page": 1
+    },*/
+    const renderPaginationMessage = useMemo(() => {
+        return loading ? null : (
+            <Alert variant="warning" message="Large Result Size">
+                <div>
+                    <p>
+                        This query returns <span className="font-semibold">{data!.pagination.total_num_records}</span>{" "}
+                        results. The top {data!.pagination.paged_num_records} results are displayed. Additional pages of
+                        the result can be retrieved using the NIAGADS Open Access API.
+                    </p>
+                    <p className="mt-2">
+                        <a
+                            className="ui-link"
+                            href={`${process.env.NEXT_PUBLIC_API_HOST}${data!.request.endpoint}?&page=1`}
+                            target="_blank"
+                        >
+                            {process.env.NEXT_PUBLIC_API_HOST}
+                            {data!.request.endpoint}?page=1
+                        </a>
+                    </p>
+                    {/*<p className="mt-1">
+                        To retrieve the results as tab-delimited text, set{" "}
+                        <span className="font-semibold">format=TEXT</span>.
+                    </p>*/}
+                </div>
+            </Alert>
+        );
+    }, [loading]);
+
     useEffect(() => {
         try {
             const [route, name] = process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
@@ -69,12 +104,15 @@ function TrackDataTable({ track }: Props) {
             {loading ? (
                 <Skeleton type="table"></Skeleton>
             ) : (
-                <Table
-                    id={data!.response.id}
-                    data={data!.response.data}
-                    columns={data!.response.columns}
-                    options={data!.response.options}
-                />
+                <>
+                    {data!.pagination.total_num_records > data!.pagination.paged_num_records && renderPaginationMessage}
+                    <Table
+                        id={data!.response.id}
+                        data={data!.response.data}
+                        columns={data!.response.columns}
+                        options={data!.response.options}
+                    />
+                </>
             )}
         </>
     );

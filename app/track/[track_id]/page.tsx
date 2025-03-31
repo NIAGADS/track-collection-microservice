@@ -17,6 +17,9 @@ export default function TrackDataPage() {
     return (
         <>
             <TrackPageHeader track={params.track_id} />
+            <div className="m-4">
+                <h1 className="font-bold text-3xl">Most significant QTLs</h1>
+            </div>
             <TrackDataTable track={params.track_id} />
         </>
     );

@@ -19,7 +19,7 @@ export default function RootLayout({
     return (
         <html>
             <body>
-                <StandardRootLayout navConfig={NavigationConfig} fullWidth={false}>
+                <StandardRootLayout navConfig={NavigationConfig} fullWidth={true}>
                     {children}
                 </StandardRootLayout>
             </body>
