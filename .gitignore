@@ -6,6 +6,7 @@
 docker.env
 # project config
 navigation.config.ts
+metadata.config.ts
 
 # nextjs
 .next
