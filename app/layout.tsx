@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Providers } from "./provider";
-import "./globals.css";
-import NavigationMenu from "@/components/Navigation";
+
+import { RootLayout as StandardRootLayout } from "@niagads/ui/layouts";
+import NavigationConfig from "@/config/navigation.config";
+
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
     title: "NIAGADS Track Collection Microservice",
@@ -15,12 +17,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className="antialiased">
-                <Providers>
-                    <NavigationMenu></NavigationMenu>
+        <html>
+            <body>
+                <StandardRootLayout navConfig={NavigationConfig} fullWidth={false}>
                     {children}
-                </Providers>
+                </StandardRootLayout>
             </body>
         </html>
     );
