@@ -2,7 +2,10 @@
 
 import { cache, useEffect, useMemo, useState } from "react";
 import Table from "@niagads/table";
-import { Alert, Card, CardBody, Skeleton } from "@niagads/ui";
+import { Alert, Button, Card, CardBody, Skeleton } from "@niagads/ui";
+import { DataTableMeta } from "@/config/metadata.config";
+
+import { RowSelectionState } from "@tanstack/table-core";
 
 import "@niagads/table/css";
 interface Row {
@@ -47,14 +50,8 @@ interface TableViewResponse {
 function TrackDataTable({ track }: Props) {
     const [loading, setLoading] = useState<boolean>(true);
     const [data, setData] = useState<TableViewResponse | null>(null);
+    const [selectedRow, setSelectedRow] = useState<string | undefined>(undefined);
 
-    /*  "request_id": "329627b1a9ea911d03dfaa7a3fa8505c",
-    "endpoint": "/genomics/track/NGFGXQTL0000005/data",
-    "parameters": {
-      "view": "table",
-      "track": "NGFGXQTL0000005",
-      "page": 1
-    },*/
     const renderPaginationMessage = useMemo(() => {
         return loading ? null : (
             <Alert variant="warning" message="Large Result Size">
@@ -83,6 +80,17 @@ function TrackDataTable({ track }: Props) {
         );
     }, [loading]);
 
+    const onRowSelect = (rowSelection: RowSelectionState) => {
+        if (data) {
+            const target: string = Object.keys(rowSelection)[0];
+            setSelectedRow(target);
+        }
+    };
+
+    useEffect(() => {
+        console.log(selectedRow);
+    }, [selectedRow]);
+
     useEffect(() => {
         try {
             const [route, name] = process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
@@ -95,6 +103,14 @@ function TrackDataTable({ track }: Props) {
     useEffect(() => {
         if (data) {
             data.response.options.disableColumnFilters = true; // FIXME: remove when column filters work
+            const rowSelectOpts = {
+                header: "Select",
+                onRowSelect: onRowSelect,
+                description: "extract or view all QTLs targeting the selected gene",
+                rowId: "target_ensembl_id",
+            };
+            data.response.options.rowSelect = rowSelectOpts;
+
             setLoading(false);
         }
     }, [data]);
@@ -106,6 +122,16 @@ function TrackDataTable({ track }: Props) {
             ) : (
                 <>
                     {data!.pagination.total_num_records > data!.pagination.paged_num_records && renderPaginationMessage}
+                    <div className="m-3 flex flex-row gap-4">
+                        <Button variant="primary" disabled={selectedRow === undefined ? true : false}>
+                            View on Genome Browser
+                        </Button>
+                        <Button variant="primary" disabled={selectedRow === undefined ? true : false}>
+                            Fetch all associated QTLs
+                        </Button>
+                        <p className="self-center">{DataTableMeta.rowSelectDescription}</p>
+                    </div>
+
                     <Table
                         id={data!.response.id}
                         data={data!.response.data}
