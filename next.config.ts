@@ -13,15 +13,16 @@ const nextConfig: NextConfig = {
             {
                 source: '/service/:path*',
                 destination: 'https://www.niagads.org/genomics/service/:path*'
-            },           
+            },
             {
                 source: '/api/:path*',
-                destination: 'https://api.niagads.org/:path*'
-            }
-           /* {
-                source: '/files/:path*',
-                destination: 'https://www.niagads.org/genomics/files/:path*'
-            }*/
+                destination: `${process.env.NIAGADS_API_HOST}/:path*`,
+                basePath: false
+            },
+            /* {
+                 source: '/files/:path*',
+                 destination: 'https://www.niagads.org/genomics/files/:path*'
+             }*/
         ]
     },
 
@@ -38,11 +39,11 @@ const nextConfig: NextConfig = {
                 destination: 'https://www.niagads.org/genomics/app/record/variant/:path*',
                 permanent: true
             },
-          /*  {
-                source: '/record/:path*',
-                destination: 'https://www.niagads.org/genomics/app/record/:path*',
-                permanent: true
-            }, */
+            /*  {
+                  source: '/record/:path*',
+                  destination: 'https://www.niagads.org/genomics/app/record/:path*',
+                  permanent: true
+              }, */
         ]
     }
 

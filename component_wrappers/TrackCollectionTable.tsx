@@ -1,45 +1,38 @@
-'use client'
+"use client";
 
-import React, { cache, use, useEffect, useState } from "react";
-import Table from "@bug_sam/table";
+import React, { cache, useEffect, useState } from "react";
+import Table from "@niagads/table";
 import { Collection } from "@/common/types";
-import { Card, CardBody, CardHeader, Skeleton } from "@heroui/react";
+import { Skeleton } from "@niagads/ui";
+
+import "@niagads/table/css";
 
 type RESPONSE_TYPE = "collection-listing" | "track-listing";
 
-const fetchCollectionInformation = cache(
-    async (collection: Collection, responseType: RESPONSE_TYPE) => {
-        const queryString =
-            responseType === "collection-listing"
-                ? `?${collection.name}`
-                : `/${collection.name}?view=table`;
-        const requestUrl = `/api/${collection.route}/collection${queryString}`;
-        let data = null;
-        try {
-            const response: any = await fetch(requestUrl);
-            if (response.ok) {
-                data = await response.json();
-                data = data.response;
-            } else {
-                throw new Error(`Error fetching collection ${collection}`);
-            }
-        } catch (error) {
-            console.error(error);
-        } finally {
-            return data;
+const fetchCollectionInformation = cache(async (collection: Collection, responseType: RESPONSE_TYPE) => {
+    const queryString =
+        responseType === "collection-listing" ? `?${collection.name}` : `/${collection.name}?view=table`;
+    const requestUrl = `/api/${collection.route}/collection${queryString}`;
+    let data = null;
+    try {
+        const response: any = await fetch(requestUrl);
+        if (response.ok) {
+            data = await response.json();
+            data = data.response;
+        } else {
+            throw new Error(`Error fetching collection ${collection}`);
         }
+    } catch (error) {
+        console.error(error);
+    } finally {
+        return data;
     }
-);
+});
 
 // TODO: error handling
 const fetchCollectionMetadata = cache(async (collection: Collection) => {
-    const response: any = await fetchCollectionInformation(
-        collection,
-        "collection-listing"
-    );
-    const match = response.find(
-        (c: any) => c.name.toLowerCase() == collection.name.toLowerCase()
-    );
+    const response: any = await fetchCollectionInformation(collection, "collection-listing");
+    const match = response.find((c: any) => c.name.toLowerCase() == collection.name.toLowerCase());
     Object.assign(collection, {
         label: match.name,
         description: match.description,
@@ -48,10 +41,7 @@ const fetchCollectionMetadata = cache(async (collection: Collection) => {
 });
 
 const fetchTableData = cache(async (collection: Collection) => {
-    const response: any = await fetchCollectionInformation(
-        collection,
-        "track-listing"
-    );
+    const response: any = await fetchCollectionInformation(collection, "track-listing");
     // create the track link outs
     for (const c of response.columns) {
         if (c.id == "track_id") {
@@ -99,10 +89,10 @@ function TrackCollectionTable() {
     const [collection, setCollection] = useState<Collection | null>(null);
     const [table, setTable] = useState<TableProps | null>(null);
 
+    const defaultColumns = ["track_id", "name", "feature_type", "study_name", "biosample_term"];
     useEffect(() => {
         try {
-            const [route, name] =
-                process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
+            const [route, name] = process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
             fetchCollectionMetadata({
                 route: route,
                 name: name,
@@ -115,27 +105,21 @@ function TrackCollectionTable() {
     }, []);
 
     useEffect(() => {
-        collection &&
-            fetchTableData(collection).then((result) => setTable(result));
+        collection && fetchTableData(collection).then((result) => setTable(result));
     }, [collection]);
 
     useEffect(() => {
-        table && setLoading(false);
+        if (table) {
+            table.options.defaultColumns = defaultColumns;
+            table.options.disableColumnFilters = true;
+            setLoading(false);
+        }
     }, [table]);
 
-    return (
-        !loading && (
-            <Card className="p-2" shadow="none" radius="none">
-                <CardBody>
-                    <Table
-                        data={table!.data}
-                        columns={table!.columns}
-                        id={table!.id}
-                        options={table!.options}
-                    />
-                </CardBody>
-            </Card>
-        )
+    return !loading ? (
+        <Table data={table!.data} columns={table!.columns} id={table!.id} options={table!.options} />
+    ) : (
+        <Skeleton type="table" />
     );
 }
 

@@ -1,17 +1,7 @@
 "use client";
 
 import { cache, useEffect, useState } from "react";
-import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Link,
-    Tooltip,
-    Image,
-    Input,
-    Form,
-} from "@heroui/react";
+import { Button, Card, CardBody, CardHeader /*Tooltip*/ } from "@niagads/ui";
 
 const fetchTableMetadata = cache(async (route: string, track: string) => {
     const requestUrl = `/api/${route}/track/${track}?content=full`;
@@ -21,9 +11,7 @@ const fetchTableMetadata = cache(async (route: string, track: string) => {
         if (response.ok) {
             data = await response.json();
         } else {
-            throw new Error(
-                `Error fetching track ${track} from route ${route}`
-            );
+            throw new Error(`Error fetching track ${track} from route ${route}`);
         }
     } catch (error) {
         console.error(error);
@@ -58,11 +46,8 @@ function TrackPageHeader({ track }: Props) {
 
     useEffect(() => {
         try {
-            const [route, name] =
-                process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
-            fetchTableMetadata(route, track).then((result) =>
-                setMetadata(result)
-            );
+            const [route, name] = process.env.NEXT_PUBLIC_TRACK_COLLECTION!.split(":");
+            fetchTableMetadata(route, track).then((result) => setMetadata(result));
         } catch (err) {
             console.error(`Error retrieving track ${track} data`);
         }
@@ -77,107 +62,78 @@ function TrackPageHeader({ track }: Props) {
     return (
         metadata && (
             <div className="m-6 gap-2 grid grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
-                <Card className="w-[400px]">
+                <Card>
                     <CardHeader>
                         <div className="flex flex-col">
                             <p className="text-md">
                                 {" "}
-                                Track{" "}
-                                <span className="text-2xl font-bold">
-                                    {metadata.track_id}
-                                </span>
+                                Track <span className="text-2xl font-bold">{metadata.track_id}</span>
                             </p>
                             <Attribute
-                                label={
-                                    metadata.data_category === "QTL"
-                                        ? "QTL Type"
-                                        : "Feature Type"
-                                }
+                                label={metadata.data_category === "QTL" ? "QTL Type" : "Feature Type"}
                                 value={metadata.feature_type}
-                                className="float-end"></Attribute>
+                                className="float-end"
+                            ></Attribute>
                             {metadata.data_category === "QTL" && (
                                 <Attribute
                                     label={"Filter"}
-                                    value={
-                                        metadata.name.split("QTL ")[
-                                            metadata.name.split("QTL ").length -
-                                                1
-                                        ]
-                                    }
+                                    value={metadata.name.split("QTL ")[metadata.name.split("QTL ").length - 1]}
                                 />
                             )}
                         </div>
                     </CardHeader>
                     <CardBody>
-                        <Attribute
-                            label="Source Repository"
-                            value={metadata.provenance.data_source}
-                        />
-                        <Attribute
-                            label="Accession"
-                            value={metadata.provenance.accession}
-                        />
+                        <Attribute label="Source Repository" value={metadata.provenance.data_source} />
+                        <Attribute label="Accession" value={metadata.provenance.accession} />
                         <Attribute
                             label="Attribution"
                             value={`${metadata.provenance.attribution} // ${metadata.provenance.pubmed_id}`}
                         />
-                        <Attribute
-                            label="Consortia"
-                            value={`${metadata.provenance.consortia}`}
-                        />
+                        <Attribute label="Consortia" value={`${metadata.provenance.consortia}`} />
                     </CardBody>
                 </Card>
-                <Card className="w-[400px]">
+                <Card>
                     <CardBody>
-                        <Attribute
-                            label="Cohort(s)"
-                            value={`${metadata.cohorts}`}
-                        />
+                        <Attribute label="Cohort(s)" value={`${metadata.cohorts}`} />
                         <Attribute
                             label="Biosample"
-                            value={
-                                metadata.biosample_characteristics
-                                    .biosample_term
-                            }></Attribute>
+                            value={metadata.biosample_characteristics.biosample_term}
+                        ></Attribute>
                     </CardBody>
                 </Card>
-                <Card className="w-[400px]">
+                <Card>
                     <CardBody>
-                        <Tooltip content="Retrieve the full track metadata in JSON format from the NIAGADS Open Access API">
+                        <p>form here</p>
+                        {/*<Tooltip content="Retrieve the full track metadata in JSON format from the NIAGADS Open Access API">
                             <Button
                                 showAnchorIcon
                                 color="primary"
                                 as={Link}
-                                href={`/api/filer/track/${metadata.track_id}?content=full`}>
+                                href={`/api/filer/track/${metadata.track_id}?content=full`}
+                            >
                                 Fetch Metadata
                             </Button>
                         </Tooltip>
-                            <Form validationBehavior="aria" className="mt-2">
-                                <Input label="Region" type="text" isDisabled={true} />
-                                <Tooltip content="Retrieve the track data in a genomic region (gene or span) of interest from the NIAGADS Open Access API">
-
-                                <Button
-                                    showAnchorIcon
-                                    type="submit"
-                                    color="primary"
-                                    as={Link}
-                                    isDisabled={true}>
+                        <Form validationBehavior="aria" className="mt-2">
+                            <Input label="Region" type="text" isDisabled={true} />
+                            <Tooltip content="Retrieve the track data in a genomic region (gene or span) of interest from the NIAGADS Open Access API">
+                                <Button showAnchorIcon type="submit" color="primary" as={Link} isDisabled={true}>
                                     Fetch Data
                                 </Button>
-                                </Tooltip>
-                            </Form>
-                        
+                            </Tooltip>
+                        </Form> */}
                     </CardBody>
                 </Card>
 
-                <Card className="w-[400px]">
+                <Card>
                     <CardHeader>
                         <em>p-Value Distribution</em>
                     </CardHeader>
                     <CardBody>
-                        <Image
+                        <img
                             src="https://dummyimage.com/400x200/5bbfe3/0011ff&text=p-value+dist"
-                            alt="placeholder"></Image>
+                            alt="placeholder"
+                        ></img>
                     </CardBody>
                 </Card>
             </div>
