@@ -111,7 +111,7 @@ function TrackCollectionTable() {
     useEffect(() => {
         if (table) {
             table.options.defaultColumns = defaultColumns;
-            table.options.disableColumnFilters = true;
+            table.options.disableColumnFilters = true; // FIXME: remove when column filters work
             setLoading(false);
         }
     }, [table]);

@@ -2,8 +2,9 @@
 
 import { cache, useEffect, useState } from "react";
 import Table from "@niagads/table";
-import { Card, CardBody, CardHeader } from "@niagads/ui";
+import { Card, CardBody, Skeleton } from "@niagads/ui";
 
+import "@niagads/table/css";
 interface Row {
     [k: string]: any;
 }
@@ -15,7 +16,9 @@ interface TableProps {
 }
 
 const fetchTableData = cache(async (route: string, track: string) => {
-    const requestUrl = `/api/${route}/track/${track}/data?view=table`;
+    // FIXME: temporary while collection metadata queried out of FILER only
+    const routeRedirect = "genomics";
+    const requestUrl = `/api/${routeRedirect}/track/${track}/data?view=table`;
     let data = null;
     try {
         const response: any = await fetch(requestUrl);
@@ -56,23 +59,22 @@ function TrackDataTable({ track }: Props) {
 
     useEffect(() => {
         if (data) {
+            data.response.options.disableColumnFilters = true; // FIXME: remove when column filters work
             setLoading(false);
         }
     }, [data]);
 
     return (
         <>
-            {data && (
-                <Card>
-                    <CardBody>
-                        <Table
-                            id={data.response.id}
-                            data={data.response.data}
-                            columns={data.response.columns}
-                            options={data.response.options}
-                        />
-                    </CardBody>
-                </Card>
+            {loading ? (
+                <Skeleton type="table"></Skeleton>
+            ) : (
+                <Table
+                    id={data!.response.id}
+                    data={data!.response.data}
+                    columns={data!.response.columns}
+                    options={data!.response.options}
+                />
             )}
         </>
     );
