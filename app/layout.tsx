@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { RootLayout as StandardRootLayout } from "@niagads/ui/layouts";
+import NavigationConfig from "@/config/navigation.config";
+
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -13,10 +16,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className="antialiased">
-                {children}
-                </body>
+        <html>
+            <body>
+                <StandardRootLayout navConfig={NavigationConfig} fullWidth={false}>
+                    {children}
+                </StandardRootLayout>
+            </body>
         </html>
     );
 }

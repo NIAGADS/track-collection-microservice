@@ -13,12 +13,14 @@
     "contributors": [],
     "scripts": {
         "dev": "next dev --turbopack",
+        "dev-no-turbo": "next dev",
         "build": "next build",
         "prod": "next start",
         "start": "next start",
         "lint": "next lint"
     },
     "dependencies": {
+        "@niagads/ui": "^0.2.5-alpha.0",
         "next": "15.1.4",
         "next-seo": "^6.6.0",
         "react": "^19.0.0",

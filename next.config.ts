@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+    compiler: { styledComponents: true },
     /* config options here */
 
     /* for accessing GenomicsDB services and static files; e.g., genome browser tracks
