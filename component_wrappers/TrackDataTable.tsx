@@ -64,10 +64,10 @@ function TrackDataTable({ track }: Props) {
                     <p className="mt-2">
                         <a
                             className="ui-link"
-                            href={`${process.env.NEXT_PUBLIC_API_HOST}${data!.request.endpoint}?&page=1`}
+                            href={`${process.env.NEXT_PUBLIC_NIAGADS_API_HOST}${data!.request.endpoint}?&page=1`}
                             target="_blank"
                         >
-                            {process.env.NEXT_PUBLIC_API_HOST}
+                            {process.env.NEXT_PUBLIC_NIAGADS_API_HOST}
                             {data!.request.endpoint}?page=1
                         </a>
                     </p>

@@ -6,9 +6,8 @@ import NavigationConfig from "@/config/navigation.config";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
-    title: "NIAGADS Track Collection Microservice",
-    description:
-        "track collection browser; allows you to search and mine top hits in related collections of NIAGADS or ADSP data tracks",
+    title: process.env.NEXT_PUBLIC_SERVICE_NAME,
+    description: process.env.NEXT_PUBLIC_SERVICE_DESCRIPTION,
 };
 
 export default function RootLayout({
