@@ -1,81 +1,16 @@
-# nextjs-template
+# NIAGADS Track Collection Microservice
 
-> template repository for NIAGADS next.js sites
+Data Explorer for collections of data tracks hosted in the NIAGADS Alzheimer's GenomicsDB (GWAS Summary Statistics, xQTL Gene Summaries) or Functional Genomics Repository (FILER).
 
-## Create new projects
+> **Under development; not recommended for third-party use at this time.**
 
-### Create a new next.js application from the template 
+## Dependencies
 
-(new application; not a GitHub repository)
+* Docker
 
-```bash
-npx create-next-app --example https://github.com/NIAGADS/nextjs-template <app>
-```
+## Developer Notes
 
-### Generate a new repository in GitHub using the template 
-
-#### CLI
-
-```bash
-gh repo create <new-repo-name> --template="https://github.com/NIAGADS/nextjs-template"
-```
-
-#### Using GitHub.com interface
-
-<https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template>
-
-## Sync templated projects
-
-To keep applications generated from the template, run the following in the application's local project directory:
-
-```bash
-git remote add template https://github.com/NIAGADS/nextjs-template
-git fetch --all
-git merge template/[branch to merge] --allow-unrelated-histories
-```
-
-and merge conflicts as required for your application.
-
-## Customize
-
-For each of the following files, please adjust as appropriate for your project:
-
-### package.json
-
-* `name`
-* `bugs->tracker` to be `https://github.com/<your_project>/issues`
-* `bugs->email` to be `help@niagads.org` when in **production**
-* `author` (add e-mails and URLs as necessary)
-* `contributors` (add e-mails and URLs as necessary)
-
-### next-seo.config.js
-
-* all occurrences of `title`, `titleTemplate`, `defaultTitle`, `description`
-* in production: `url`, `canonical`
-
-For more information on search engine optimization (SEO), please visit:
-
-* <https://nextjs.org/learn-pages-router/seo/introduction-to-seo>
-* <https://github.com/garmeeh/next-seo>
-* <https://blog.logrocket.com/manage-seo-next-js-with-next-seo/>
-
-### docker-compose.yaml
-
-* change `service->name` from `nextjs-template-app` as appropriate
-
-You may also need to customize the `networks` section if your application needs to share a network w/other dockerized services. 
-
-See the [docker-compose.yaml](https://github.com/NIAGADS/niagads-api-client/blob/244ac6f080e760f45ae7f2e60143daa839e10e45/docker-compose.yaml) from the NIAGADS API Client for an example.
-
-### app/layout.tsx
-
-* exported `Metadata` object
-
-### tsconfig.json and tsconfig.base.json
-
-Next.js overwrites `tsconfig.json` under certain conditions if values don't meet its expected defaults.  This is a problem for development and for handling older third-party libraries.  As a work-around, `tsconfig.base.json` has been added and `tsconfig.json` modifid to `extend` the `tsconfig.base.json` configuration.
-
-> Customizations to the `tsconfig` should be made to the `.base.json` file.
+This is a templated site based on the [NIAGADS next.js template](https://github.com/NIAGADS/nextjs-template).  Please see that project documentation for instructions on how to keep the *Track Collection Microservice* in sync with the template.  This project also depends on the [NIAGAD Visualization Collection](https://github.com/NIAGADS/niagads-viz-monorepo), using both the [@niagads/ui](https://www.npmjs.com/package/@niagads/ui) and [@niagads/table](https://www.npmjs.com/package/@niagads/table) component libraries.
 
 ## Deployment
 
