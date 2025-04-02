@@ -1,44 +1,9 @@
-"use client";
-
 import { cache, useEffect, useMemo, useState } from "react";
-import { Button, Card, CardBody, CardHeader /*Tooltip*/, Skeleton } from "@niagads/ui";
+import { Button, Card, CardBody, CardHeader, Skeleton } from "@niagads/ui";
 import { Tooltip } from "@niagads/ui/client";
 import { BarChart } from "./BarChart";
 import { GenericPlot } from "./GenericPlot";
-
-const fetchTrackSummary = cache(async (route: string, track: string, type: string) => {
-    const requestUrl = `/api/genomics/track/${track}/data/summary/${type}`;
-    let data = null;
-    try {
-        const response: any = await fetch(requestUrl);
-        if (response.ok) {
-            data = await response.json();
-        } else {
-            throw new Error(`Error fetching track ${track} from route ${route}`);
-        }
-    } catch (error) {
-        console.error(error);
-    } finally {
-        return data.response;
-    }
-});
-
-const fetchTableMetadata = cache(async (route: string, track: string) => {
-    const requestUrl = `/api/${route}/track/${track}?content=full`;
-    let data = null;
-    try {
-        const response: any = await fetch(requestUrl);
-        if (response.ok) {
-            data = await response.json();
-        } else {
-            throw new Error(`Error fetching track ${track} from route ${route}`);
-        }
-    } catch (error) {
-        console.error(error);
-    } finally {
-        return data.response[0];
-    }
-});
+import { APIResponse } from "@/common/types";
 
 interface AttributeProps {
     label: string;
@@ -57,13 +22,14 @@ function Attribute({ label, value, className = "" }: AttributeProps) {
     );
 }
 
-interface Props {
-    track: string;
+interface HeaderProps {
+    metadata: any;
+    summaries: APIResponse[];
 }
 
-function TrackPageHeader({ track }: Props) {
+function TrackPageHeader({ metadata, summaries }: HeaderProps) {
     const [loading, setLoading] = useState<boolean>(true);
-    const [metadata, setMetadata] = useState<any>(null);
+
     const [summaryCounts, setSummaryCounts] = useState<any>(null);
     const [summaryTop, setSummaryTop] = useState<any>(null);
     const [countsLoading, setCountsLoading] = useState<boolean>(true);

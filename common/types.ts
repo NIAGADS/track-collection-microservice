@@ -1,3 +1,4 @@
+import { TableProps } from "@niagads/table";
 export interface Collection {
     route: string;
     name: string;
@@ -5,4 +6,8 @@ export interface Collection {
     description?: string;
 }
 
-
+export interface APIResponse {
+    request: any;
+    pagination: any;
+    response: TableProps;
+}
