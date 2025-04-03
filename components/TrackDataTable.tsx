@@ -8,7 +8,7 @@ import { Alert, Button, Skeleton } from "@niagads/ui";
 import Table from "@niagads/table";
 import "@niagads/table/css";
 
-export function TrackDataTable({ response, pagination, request }: APIResponse) {
+export function TrackDataTable({ data, pagination, request }: APIResponse) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [selectedRow, setSelectedRow] = useState<string | undefined>(undefined);
 
@@ -49,11 +49,11 @@ export function TrackDataTable({ response, pagination, request }: APIResponse) {
     }, [selectedRow]);
 
     useEffect(() => {
-        if (response) {
-            if (response.options) {
-                response.options.disableColumnFilters = true; // FIXME: remove when column filters work
+        if (data) {
+            if (data.options) {
+                data.options.disableColumnFilters = true; // FIXME: remove when column filters work
             } else {
-                response.options = { disableColumnFilters: true };
+                data.options = { disableColumnFilters: true };
             }
 
             const rowSelectOpts = {
@@ -63,11 +63,11 @@ export function TrackDataTable({ response, pagination, request }: APIResponse) {
                 rowId: "target_ensembl_id",
             };
 
-            response.options.rowSelect = rowSelectOpts;
+            data.options.rowSelect = rowSelectOpts;
 
             setIsLoading(false);
         }
-    }, [response.options]);
+    }, [data.options]);
 
     return (
         <>
@@ -86,7 +86,7 @@ export function TrackDataTable({ response, pagination, request }: APIResponse) {
                         <p className="self-center">{DataTableMeta.rowSelectDescription}</p>
                     </div>
 
-                    <Table {...response} />
+                    <Table {...data} />
                 </>
             )}
         </>

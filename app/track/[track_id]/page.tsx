@@ -1,31 +1,25 @@
 // track/[track_id]/page.tsx
 import React, { Suspense } from "react";
+import { useParams } from "next/navigation";
+
+import { Skeleton } from "@niagads/ui";
 
 import { Collection, APIResponse } from "@/common/types";
-import {
-    fetchCollectionMetadata,
-    fetchTrackDataTable,
-    fetchTrackMetadata,
-    fetchTrackMetadataTable,
-} from "@/utils/fetch";
+import { fetchTrackDataTable, fetchTrackMetadata } from "@/utils/fetch";
 import { DataTableMeta } from "@/config/metadata.config";
-import { Skeleton } from "@niagads/ui";
 import { TrackDataTable } from "@/components/TrackDataTable";
-import { useParams } from "next/navigation";
+import { TrackPageHeader } from "@/components/TrackPageHeader";
 import { parseCollection } from "@/utils/utils";
 
 export default async function Page() {
-    const params = useParams<{ track_id: string }>();
+    const trackId = useParams<{ track_id: string }>().track_id;
     const collection: Collection = parseCollection(process.env.NEXT_PUBLIC_TRACK_COLLECTION!);
     // FIXME - temporary until we get collections sorted out, querying genomics is hard coded
-    const data: APIResponse = await fetchTrackDataTable("genomics", params.track_id);
-    const metadata: any = await fetchTrackMetadata(collection.route, params.track_id);
-
-    const summaryTypes = [];
+    const data: APIResponse = await fetchTrackDataTable("genomics", trackId);
 
     return (
         <>
-            {/*<TrackPageHeader {..metadata} />*/}
+            <TrackPageHeader route={collection.route} track={trackId} />
             <div className="m-4 py-4 border-b border-primary">
                 <h1 className="font-bold text-3xl">{DataTableMeta.title}</h1>
             </div>

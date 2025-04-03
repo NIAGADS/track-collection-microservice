@@ -16,21 +16,21 @@ const DEFAULT_COLUMNS = [
     "bp_covered",
 ];
 
-export function TrackMetadataTable({ response, pagination, request }: APIResponse) {
+export function TrackMetadataTable({ data, pagination, request }: APIResponse) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        if (response) {
-            if (response.options) {
-                response.options.defaultColumns = DEFAULT_COLUMNS;
-                response.options.disableColumnFilters = true; // FIXME: remove when column filters work
+        if (data) {
+            if (data.options) {
+                data.options.defaultColumns = DEFAULT_COLUMNS;
+                data.options.disableColumnFilters = true; // FIXME: remove when column filters work
             } else {
-                response.options = { defaultColumns: DEFAULT_COLUMNS, disableColumnFilters: true };
+                data.options = { defaultColumns: DEFAULT_COLUMNS, disableColumnFilters: true };
             }
 
             setIsLoading(false);
         }
-    }, [response]);
+    }, [data.options]);
 
-    return isLoading ? <Skeleton type="table" /> : <Table {...response} />;
+    return isLoading ? <Skeleton type="table" /> : <Table {...data} />;
 }

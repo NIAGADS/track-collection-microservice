@@ -34,13 +34,13 @@ export const fetchTrackMetadataTable = cache(async (collection: Collection) => {
         console.error(error);
     } finally {
         // create the track link outs
-        if (data && data.response) {
-            for (const c of data?.response.columns) {
+        if (data && data.data) {
+            for (const c of data?.data.columns) {
                 if (c.id == "track_id") {
                     Object.assign(c, { type: "link" });
                 }
             }
-            for (const t of data.response.data) {
+            for (const t of data.data.data) {
                 Object.assign(t, {
                     track_id: {
                         value: t.track_id,
@@ -92,12 +92,13 @@ export const fetchTrackMetadata = cache(async (route: string, track: string) => 
     } catch (error) {
         console.error(error);
     } finally {
-        return data.response
+        return data.data
     }
 });
 
 
-export const fetchTrackSummary = cache(async (route: string, track: string, type: string) => {
+// no route needed here b/c only genomics will have summaries
+export const fetchDataSummary = cache(async (track: string, type: string) => {
     const requestUrl = `/api/genomics/track/${track}/data/summary/${type}`;
     let data = null;
     try {
@@ -105,11 +106,11 @@ export const fetchTrackSummary = cache(async (route: string, track: string, type
         if (response.ok) {
             data = await response.json();
         } else {
-            throw new Error(`Error fetching track ${track} from route ${route}`);
+            throw new Error(`Error fetching track ${track} ${type} summary`);
         }
     } catch (error) {
         console.error(error);
     } finally {
-        return data.response;
+        return data.data;
     }
 });

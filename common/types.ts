@@ -9,5 +9,5 @@ export interface Collection {
 export interface APIResponse {
     request: any;
     pagination: any;
-    response: TableProps;
+    data: TableProps;
 }
